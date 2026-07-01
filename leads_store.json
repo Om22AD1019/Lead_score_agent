@@ -1,0 +1,122 @@
+[
+  {
+    "lead_id": null,
+    "name": "Rahul",
+    "source": "manual",
+    "total_score": 8,
+    "category": "Poor Lead",
+    "recommendation": "Reject",
+    "breakdown": {
+      "cibil_score_marks": 0,
+      "annual_income_marks": 0,
+      "assets_value_marks": 0,
+      "income_source_marks": 0,
+      "previous_loans_marks": 8
+    },
+    "reason_codes": [
+      "CIBIL < 600 (Poor)",
+      "Income < 3L (Poor)",
+      "No declared assets",
+      "No Stable Income Source",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-06-30T18:19:44.017001Z",
+    "record_id": 1
+  },
+  {
+    "lead_id": null,
+    "name": "Daniel Davis",
+    "source": "App",
+    "total_score": 46,
+    "category": "Average Lead",
+    "recommendation": "Low Priority",
+    "breakdown": {
+      "cibil_score_marks": 28,
+      "annual_income_marks": 0,
+      "assets_value_marks": 3,
+      "income_source_marks": 7,
+      "previous_loans_marks": 8
+    },
+    "reason_codes": [
+      "CIBIL 700-749 (Good)",
+      "Income < 3L (Poor)",
+      "Assets < 5L (Weak)",
+      "Salaried - Private Company",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-06-30T18:23:29.082351Z",
+    "record_id": 2
+  },
+  {
+    "lead_id": "14",
+    "name": "Girish",
+    "source": "CRM",
+    "total_score": 35,
+    "category": "Poor Lead",
+    "recommendation": "Reject",
+    "breakdown": {
+      "cibil_score_marks": 20,
+      "annual_income_marks": 0,
+      "assets_value_marks": 0,
+      "income_source_marks": 7,
+      "previous_loans_marks": 8
+    },
+    "reason_codes": [
+      "CIBIL 650-699 (Fair)",
+      "Income < 3L (Poor)",
+      "No declared assets",
+      "Salaried - Private Company",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-07-01T04:21:33.579094Z",
+    "record_id": 3
+  },
+  {
+    "lead_id": "15",
+    "name": "Rohan Kumar",
+    "source": "Website",
+    "total_score": 46,
+    "category": "Average Lead",
+    "recommendation": "Low Priority",
+    "breakdown": {
+      "cibil_score_marks": 35,
+      "annual_income_marks": 0,
+      "assets_value_marks": 0,
+      "income_source_marks": 3,
+      "previous_loans_marks": 8
+    },
+    "reason_codes": [
+      "CIBIL >= 750 (Excellent)",
+      "Income < 3L (Poor)",
+      "No declared assets",
+      "Freelance / Gig Income",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-07-01T05:12:02.743725Z",
+    "record_id": 4
+  },
+  {
+    "lead_id": "16",
+    "name": "Ayush Kumar",
+    "source": "App",
+    "total_score": 60,
+    "category": "Good Lead",
+    "recommendation": "Manual Review",
+    "breakdown": {
+      "cibil_score_marks": 28,
+      "annual_income_marks": 7,
+      "assets_value_marks": 0,
+      "income_source_marks": 10,
+      "previous_loans_marks": 15
+    },
+    "reason_codes": [
+      "CIBIL 700-749 (Good)",
+      "Income 3L-6L (Weak)",
+      "No declared assets",
+      "Salaried - Government (Most Stable)",
+      "All previous loans paid on time"
+    ],
+    "timestamp": "2026-07-01T05:53:14.533070Z",
+    "record_id": 5
+  }
+]
