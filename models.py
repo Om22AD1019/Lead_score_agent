@@ -26,12 +26,12 @@ class LeadInput(BaseModel):
     lead_id: Optional[str] = Field(None, description="Optional external lead/customer ID")
     name: Optional[str] = Field(None, description="Customer name")
     source: Optional[str] = Field("manual", description="Lead origin e.g. CRM / Website / App")
-
     cibil_score: int = Field(..., ge=300, le=900, description="CIBIL score (300-900)")
     annual_income: float = Field(..., ge=0, description="Annual income in INR")
     assets_value: float = Field(0, ge=0, description="Total declared assets value in INR")
     income_source: str = Field(..., description=f"One of {sorted(VALID_INCOME_SOURCES)}")
     previous_loan_history: str = Field(..., description=f"One of {sorted(VALID_LOAN_HISTORY)}")
+    
 
     @field_validator("income_source")
     @classmethod

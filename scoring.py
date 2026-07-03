@@ -39,9 +39,7 @@ def score_income(annual_income: float) -> Tuple[float, str]:
     elif annual_income >= 300_000:
         return 7, "Income 3L-6L (Weak)"
     else:
-        return 0, "Income < 3L (Poor)"
-
-
+        return 0, "Income < 3L (Poor)"  
 def score_assets(assets_value: float) -> Tuple[float, str]:
     """Max 15 marks"""
     if assets_value >= 5_000_000:
