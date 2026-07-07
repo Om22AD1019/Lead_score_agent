@@ -190,6 +190,32 @@ def fetch_lead(lead_id: str):
             return
         display_lead(matched[0])
 
+# save_summary_to_json function to save AI summary to ai_summaries.json#
+
+def save_summary_to_json(lead_id, summary):
+    file_path = "ai_summaries.json"
+
+    # Check if the file exists, if not, create it with an empty list
+    if not os.path.exists(file_path):
+        with open(file_path, "w", encoding="utf-8") as file:
+            json.dump([], file, ensure_ascii=False, indent=4)
+
+    # Check if the file is empty
+    if os.path.getsize(file_path) == 0:
+        summaries = []  # Initialize an empty list if the file is empty
+    else:
+        # Load existing summaries with UTF-8 encoding
+        with open(file_path, "r", encoding="utf-8") as file:
+            summaries = json.load(file)
+
+    # Append the new summary
+    summaries.append({"lead_id": lead_id, "summary": summary})
+
+    # Write back to the file with UTF-8 encoding
+    with open(file_path, "w", encoding="utf-8") as file:
+        json.dump(summaries, file, ensure_ascii=False, indent=4)
+
+    print(f"Summary for Lead ID {lead_id} saved to {file_path}")
 
 # ══════════════════════════════════════════════════════════════
 #  DISPLAY LEAD
@@ -252,6 +278,9 @@ def display_lead(lead_data: dict):
     print("  Generating...", end="\r")
     ai_text = generate_ai_summary(lead_data)
     print("                \r" + wrap_text(ai_text))
+
+    # Save the AI summary to ai_summaries.json
+    save_summary_to_json(lead_data.get("lead_id"), ai_text)
 
     print("\n" + divider + "\n")
 
