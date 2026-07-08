@@ -20,6 +20,9 @@ from dotenv import load_dotenv
 
 load_dotenv()   # reads from .env file
 
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+
 # ── Config ────────────────────────────────────────────────────
 API_URL    = "http://127.0.0.1:8000"
 GROQ_KEY   = os.getenv("GROQ_API_KEY")   # reads from .env

@@ -1278,5 +1278,101 @@
       "All previous loans paid on time"
     ],
     "timestamp": "2026-06-20T14:00:00Z"
+  },
+  {
+    "lead_id": "3",
+    "name": "Amit Verma",
+    "source": "Website",
+    "total_score": 27,
+    "category": "Poor Lead",
+    "recommendation": "Reject",
+    "breakdown": {
+      "cibil_score_marks": 10,
+      "annual_income_marks": 7,
+      "assets_value_marks": 3,
+      "income_source_marks": 3,
+      "previous_loans_marks": 4
+    },
+    "reason_codes": [
+      "CIBIL 600-649 (Weak)",
+      "Income 3L-6L (Weak)",
+      "Assets < 5L (Weak)",
+      "Freelance / Gig Income",
+      "One past default"
+    ],
+    "timestamp": "2026-07-08T11:32:59.346553Z",
+    "record_id": 41
+  },
+  {
+    "lead_id": "15",
+    "name": "Amit Verma",
+    "source": "Website",
+    "total_score": 27,
+    "category": "Poor Lead",
+    "recommendation": "Reject",
+    "breakdown": {
+      "cibil_score_marks": 10,
+      "annual_income_marks": 7,
+      "assets_value_marks": 3,
+      "income_source_marks": 3,
+      "previous_loans_marks": 4
+    },
+    "reason_codes": [
+      "CIBIL 600-649 (Weak)",
+      "Income 3L-6L (Weak)",
+      "Assets < 5L (Weak)",
+      "Freelance / Gig Income",
+      "One past default"
+    ],
+    "timestamp": "2026-07-08T11:44:25.704225Z",
+    "record_id": 42
+  },
+  {
+    "lead_id": null,
+    "name": "Rahul Sharma",
+    "source": "CRM",
+    "total_score": 60,
+    "category": "Good Lead",
+    "recommendation": "Manual Review",
+    "breakdown": {
+      "cibil_score_marks": 28,
+      "annual_income_marks": 14,
+      "assets_value_marks": 0,
+      "income_source_marks": 10,
+      "previous_loans_marks": 8
+    },
+    "reason_codes": [
+      "CIBIL 700-749 (Good)",
+      "Income 6L-10L (Fair)",
+      "No declared assets",
+      "Salaried - Government (Most Stable)",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-07-08T16:13:02.359920Z",
+    "record_id": 43
+  },
+  {
+    "lead_id": null,
+    "name": "Rahul Sharma",
+    "source": "CRM",
+    "total_score": 60,
+    "category": "Good Lead",
+    "recommendation": "Manual Review",
+    "breakdown": {
+      "cibil_score_marks": 28,
+      "annual_income_marks": 14,
+      "assets_value_marks": 0,
+      "income_source_marks": 10,
+      "previous_loans_marks": 8
+    },
+    "reason_codes": [
+      "CIBIL 700-749 (Good)",
+      "Income 6L-10L (Fair)",
+      "No declared assets",
+      "Salaried - Government (Most Stable)",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-07-08T16:38:26.849126Z",
+    "record_id": 44
   }
 ]

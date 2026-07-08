@@ -2,5 +2,13 @@
     {
         "lead_id": "LEAD-015",
         "summary": "Rohit Bansal, a business owner, has a CIBIL score of 700, an annual income of INR 850,000 and assets worth INR 1,200,000, but his loan history shows minor delays, giving him an overall risk score of 68/100. He is classified as a Good Lead but the recommendation flags a manual review. The sales team should move forward with this lead after completing the required manual review."
+    },
+    {
+        "lead_id": "LEAD-015",
+        "summary": "Rohit Bansal, a business owner, has a CIBIL score of 700, an annual income of INR 850,000 and assets worth INR 1,200,000. His loan history shows minor delays and he scores 68/100, placing him in the “Good Lead” category but flagged for a manual review. The sales team should move forward with this lead, pending the required manual review."
+    },
+    {
+        "lead_id": "LEAD-001",
+        "summary": "Rahul Sharma has a strong CIBIL score of 780, an annual income of INR 1,500,000 and assets worth INR 5,000,000, and his loan history shows all payments made on time. His overall risk score is 99 out of 100, placing him in the “Excellent Lead” category as a salaried employee of an MNC. The sales team should pursue this lead."
     }
 ]
