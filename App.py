@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ── Config ─────────────────────────────────────────────────────
-API_URL    = "http://127.0.0.1:8000"
+API_URL    = os.getenv("API_URL", "http://127.0.0.1:8000")
 GROQ_KEY   = os.getenv("GROQ_API_KEY")
 GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "groq/compound-mini"
@@ -125,25 +125,82 @@ st.markdown("""
 #  HELPERS
 # ══════════════════════════════════════════════════════════════
 
+# ── Fallback Local Database/Scoring Logic ──────────────────────
+import storage
+from scoring import calculate_lead_score
+from datetime import datetime
+
 def check_server():
-    try:
-        return requests.get(f"{API_URL}/", timeout=3).status_code == 200
-    except Exception:
-        return False
+    # We return True because we have a local fallback for storage & scoring
+    return True
 
 def api_get(path):
     try:
-        r = requests.get(f"{API_URL}{path}", timeout=8)
-        return r.json() if r.status_code == 200 else None
+        r = requests.get(f"{API_URL}{path}", timeout=2)
+        if r.status_code == 200:
+            return r.json()
     except Exception:
-        return None
+        pass
+    
+    # Fallback to direct python imports
+    if path == "/leads" or path == "/leads/":
+        return storage.get_all()
+    elif path.startswith("/leads/"):
+        try:
+            record_id = int(path.split("/")[-1])
+            return storage.get_by_id(record_id)
+        except Exception:
+            return None
+    return None
 
 def api_post(path, data):
     try:
-        r = requests.post(f"{API_URL}{path}", json=data, timeout=8)
+        r = requests.post(f"{API_URL}{path}", json=data, timeout=2)
         return r.json(), r.status_code
-    except Exception as e:
-        return {"detail": str(e)}, 500
+    except Exception:
+        pass
+
+    # Fallback to local execution
+    if path == "/score" or path == "/score/":
+        try:
+            if data.get("annual_income", 0) <= 0:
+                return {"detail": "Invalid income: must be greater than 0"}, 400
+
+            scoring_output = calculate_lead_score(
+                cibil_score=data["cibil_score"],
+                annual_income=data["annual_income"],
+                assets_value=data["assets_value"],
+                income_source=data["income_source"],
+                previous_loan_history=data["previous_loan_history"],
+            )
+
+            result = {
+                "lead_id": data.get("lead_id"),
+                "name": data.get("name"),
+                "source": data.get("source", "manual"),
+                "phone": data.get("phone"),
+                "email": data.get("email"),
+                "city": data.get("city"),
+                "cibil_score": data["cibil_score"],
+                "annual_income": data["annual_income"],
+                "assets_value": data["assets_value"],
+                "income_source": data["income_source"],
+                "previous_loan_history": data["previous_loan_history"],
+                "total_score": scoring_output["total_score"],
+                "category": scoring_output["category"],
+                "recommendation": scoring_output["recommendation"],
+                "breakdown": scoring_output["breakdown"],
+                "reason_codes": scoring_output["reason_codes"],
+                "timestamp": datetime.utcnow().isoformat() + "Z",
+            }
+
+            stored = storage.save_result(result)
+            return stored, 200
+        except Exception as e:
+            return {"detail": str(e)}, 500
+            
+    return {"detail": "Not Found"}, 404
+
 
 def call_llm(prompt, max_tokens=300):
     if not GROQ_KEY:
@@ -191,12 +248,16 @@ with st.sidebar:
     st.markdown("## 📊 Lead Score Agent")
     st.markdown("---")
 
-    server_ok = check_server()
-    if server_ok:
-        st.success("✅ Server Connected")
+    server_ok = True
+    try:
+        api_reachable = requests.get(f"{API_URL}/", timeout=1).status_code == 200
+    except Exception:
+        api_reachable = False
+
+    if api_reachable:
+        st.success("✅ Connected to API Server")
     else:
-        st.error("❌ Server Offline")
-        st.code("uvicorn main:app --reload --port 8000")
+        st.info("ℹ️ Running in Local Mode (API Server Offline)")
 
     st.markdown("---")
     page = st.radio("Navigate", [

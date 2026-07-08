@@ -24,7 +24,7 @@ if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
 # ── Config ────────────────────────────────────────────────────
-API_URL    = "http://127.0.0.1:8000"
+API_URL    = os.getenv("API_URL", "http://127.0.0.1:8000")
 GROQ_KEY   = os.getenv("GROQ_API_KEY")   # reads from .env
 GROQ_URL   = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "groq/compound-mini"
