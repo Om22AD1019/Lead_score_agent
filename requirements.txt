@@ -4,3 +4,8 @@ pydantic
 requests
 python-dotenv
 streamlit
+scikit-learn
+numpy
+pandas
+joblib
+streamlit

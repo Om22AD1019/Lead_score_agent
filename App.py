@@ -127,7 +127,7 @@ st.markdown("""
 
 # ── Fallback Local Database/Scoring Logic ──────────────────────
 import storage
-from scoring import calculate_lead_score
+from ml_scoring import predict_lead as ml_predict_lead   # uses ML if model.pkl exists, else rules
 from datetime import datetime
 
 def check_server():
@@ -166,7 +166,8 @@ def api_post(path, data):
             if data.get("annual_income", 0) <= 0:
                 return {"detail": "Invalid income: must be greater than 0"}, 400
 
-            scoring_output = calculate_lead_score(
+            # Uses ML model if model.pkl exists, otherwise falls back to rules automatically
+            scoring_output = ml_predict_lead(
                 cibil_score=data["cibil_score"],
                 annual_income=data["annual_income"],
                 assets_value=data["assets_value"],
@@ -258,6 +259,16 @@ with st.sidebar:
         st.success("✅ Connected to API Server")
     else:
         st.info("ℹ️ Running in Local Mode (API Server Offline)")
+
+    # Show which scoring method is active
+    try:
+        from ml_scoring import model_exists
+        if model_exists():
+            st.success("🤖 ML Model: Active (Random Forest)")
+        else:
+            st.warning("⚙️ ML Model: Not trained (using rules)")
+    except Exception:
+        st.warning("⚙️ Scoring: Rule-based only")
 
     st.markdown("---")
     page = st.radio("Navigate", [

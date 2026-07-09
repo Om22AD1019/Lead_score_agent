@@ -1374,5 +1374,93 @@
     ],
     "timestamp": "2026-07-08T16:38:26.849126Z",
     "record_id": 44
+  },
+  {
+    "lead_id": null,
+    "name": "Rahul Sharma",
+    "source": "CRM",
+    "total_score": 60,
+    "category": "Good Lead",
+    "recommendation": "Manual Review",
+    "breakdown": {
+      "cibil_score_marks": 28,
+      "annual_income_marks": 14,
+      "assets_value_marks": 0,
+      "income_source_marks": 10,
+      "previous_loans_marks": 8
+    },
+    "reason_codes": [
+      "CIBIL 700-749 (Good)",
+      "Income 6L-10L (Fair)",
+      "No declared assets",
+      "Salaried - Government (Most Stable)",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-07-09T04:17:06.517110Z",
+    "record_id": 45
+  },
+  {
+    "lead_id": null,
+    "name": "Rahul Sharma",
+    "source": "CRM",
+    "phone": null,
+    "email": null,
+    "city": null,
+    "cibil_score": 700,
+    "annual_income": 600000,
+    "assets_value": 0,
+    "income_source": "salaried_govt",
+    "previous_loan_history": "no_history",
+    "total_score": 60,
+    "category": "Good Lead",
+    "recommendation": "Manual Review",
+    "breakdown": {
+      "cibil_score_marks": 28,
+      "annual_income_marks": 14,
+      "assets_value_marks": 0,
+      "income_source_marks": 10,
+      "previous_loans_marks": 8
+    },
+    "reason_codes": [
+      "CIBIL 700-749 (Good)",
+      "Income 6L-10L (Fair)",
+      "No declared assets",
+      "Salaried - Government (Most Stable)",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-07-09T07:42:32.710210Z",
+    "record_id": 46
+  },
+  {
+    "lead_id": null,
+    "name": "Rahul Sharma",
+    "source": "CRM",
+    "total_score": 53.6,
+    "category": "Average Lead",
+    "recommendation": "Low Priority",
+    "breakdown": {
+      "cibil_score_marks": 23.3,
+      "annual_income_marks": 5.0,
+      "assets_value_marks": 0.0,
+      "income_source_marks": 0.0,
+      "previous_loans_marks": 0.0
+    },
+    "reason_codes": [
+      "CIBIL 700-749 (Good)",
+      "Income 6L-10L (Fair)",
+      "No declared assets",
+      "Salaried - Government (Most Stable)",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-07-09T07:42:35.623876Z",
+    "scoring_method": "Random Forest ML Model",
+    "ml_confidence": 48.1,
+    "category_probs": {
+      "Poor Lead": 4.5,
+      "Average Lead": 48.1,
+      "Good Lead": 47.0,
+      "Excellent Lead": 0.5
+    },
+    "record_id": 47
   }
 ]
