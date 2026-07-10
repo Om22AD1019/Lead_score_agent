@@ -1462,5 +1462,101 @@
       "Excellent Lead": 0.5
     },
     "record_id": 47
+  },
+  {
+    "lead_id": null,
+    "name": "Rahul Sharma",
+    "source": "CRM",
+    "total_score": 53.6,
+    "category": "Average Lead",
+    "recommendation": "Low Priority",
+    "breakdown": {
+      "cibil_score_marks": 23.3,
+      "annual_income_marks": 5.0,
+      "assets_value_marks": 0.0,
+      "income_source_marks": 0.0,
+      "previous_loans_marks": 0.0
+    },
+    "reason_codes": [
+      "CIBIL 700-749 (Good)",
+      "Income 6L-10L (Fair)",
+      "No declared assets",
+      "Salaried - Government (Most Stable)",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-07-09T09:28:34.380511Z",
+    "scoring_method": "Random Forest ML Model",
+    "ml_confidence": 48.1,
+    "category_probs": {
+      "Poor Lead": 4.5,
+      "Average Lead": 48.1,
+      "Good Lead": 47.0,
+      "Excellent Lead": 0.5
+    },
+    "record_id": 48
+  },
+  {
+    "lead_id": null,
+    "name": "Rahul Sharma",
+    "source": "CRM",
+    "phone": null,
+    "email": null,
+    "city": null,
+    "cibil_score": 700,
+    "annual_income": 600000,
+    "assets_value": 0,
+    "income_source": "salaried_govt",
+    "previous_loan_history": "no_history",
+    "total_score": 53.6,
+    "category": "Average Lead",
+    "recommendation": "Low Priority",
+    "breakdown": {
+      "cibil_score_marks": 23.3,
+      "annual_income_marks": 5.0,
+      "assets_value_marks": 0.0,
+      "income_source_marks": 0.0,
+      "previous_loans_marks": 0.0
+    },
+    "reason_codes": [
+      "CIBIL 700-749 (Good)",
+      "Income 6L-10L (Fair)",
+      "No declared assets",
+      "Salaried - Government (Most Stable)",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-07-09T09:28:36.189775Z",
+    "record_id": 49
+  },
+  {
+    "lead_id": "LEAD-43",
+    "name": "Raina Mishra",
+    "source": "Website",
+    "total_score": 60.1,
+    "category": "Average Lead",
+    "recommendation": "Low Priority",
+    "breakdown": {
+      "cibil_score_marks": 28.0,
+      "annual_income_marks": 4.2,
+      "assets_value_marks": 0.0,
+      "income_source_marks": 3.3,
+      "previous_loans_marks": 0.0
+    },
+    "reason_codes": [
+      "CIBIL >= 750 (Excellent)",
+      "Income 3L-6L (Weak)",
+      "No declared assets",
+      "Salaried - Private Company",
+      "No prior loan history (neutral)"
+    ],
+    "timestamp": "2026-07-09T09:44:18.790017Z",
+    "scoring_method": "Random Forest ML Model",
+    "ml_confidence": 60.4,
+    "category_probs": {
+      "Poor Lead": 2.0,
+      "Average Lead": 60.4,
+      "Good Lead": 37.5,
+      "Excellent Lead": 0.1
+    },
+    "record_id": 50
   }
 ]

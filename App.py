@@ -203,9 +203,18 @@ def api_post(path, data):
     return {"detail": "Not Found"}, 404
 
 
-def call_llm(prompt, max_tokens=300):
+def call_llm(prompt, max_tokens=300, system_prompt=None, messages=None):
     if not GROQ_KEY:
         return "⚠️ Set GROQ_API_KEY in your .env file."
+    
+    if messages is not None:
+        api_messages = messages
+    else:
+        api_messages = []
+        if system_prompt:
+            api_messages.append({"role": "system", "content": system_prompt})
+        api_messages.append({"role": "user", "content": prompt})
+
     for attempt in range(3):
         try:
             r = requests.post(
@@ -213,7 +222,7 @@ def call_llm(prompt, max_tokens=300):
                 headers={"Authorization": f"Bearer {GROQ_KEY}",
                          "Content-Type": "application/json"},
                 json={"model": GROQ_MODEL,
-                      "messages": [{"role": "user", "content": prompt}],
+                      "messages": api_messages,
                       "max_tokens": max_tokens, "temperature": 0.5},
                 timeout=30,
             )
@@ -648,15 +657,25 @@ elif page == "💬 Chat with Leads":
 
     if user_input:
         st.session_state.chat_history.append({"role": "user", "content": user_input})
-        history_text = "".join(
-            f"{'User' if t['role']=='user' else 'Assistant'}: {t['content']}\n"
-            for t in st.session_state.chat_history[-6:]
+        
+        system_prompt = (
+            "You are a loan lead analyst assistant. You operate as a strict Retrieval-Augmented Generation (RAG) model over the lead score database below.\n"
+            "Your knowledge is strictly limited to the provided database of loan leads. You must NOT use any external knowledge, search results, or general training knowledge to answer questions that are not about the data in the database.\n"
+            "If the user asks off-topic questions, general knowledge questions (such as 'who is Lionel Messi', 'tell me about the capital of France', 'who is messi', etc.), or anything unrelated to these loan leads, you must refuse to answer. Respond with: 'I can only answer questions based on the lead score data provided.'\n"
+            "Plain text only, no markdown.\n\n"
+            f"LEADS:\n{leads_context}"
         )
+        
+        chat_msgs = []
+        for t in st.session_state.chat_history[-6:]:
+            chat_msgs.append({"role": t["role"], "content": t["content"]})
+            
         with st.spinner("Thinking..."):
             reply = call_llm(
-                f"You are a loan lead analyst. Answer about this lead database.\n"
-                f"Plain text only, no markdown.\n\n"
-                f"LEADS:\n{leads_context}\n\n{history_text}", 400)
+                prompt=None,
+                max_tokens=400,
+                messages=[{"role": "system", "content": system_prompt}] + chat_msgs
+            )
         st.session_state.chat_history.append({"role": "assistant", "content": reply})
         st.rerun()
 

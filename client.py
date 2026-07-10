@@ -48,12 +48,24 @@ CATEGORY_ICONS = {
 #  GEMINI AI CALLER
 # ══════════════════════════════════════════════════════════════
 
-def call_llm(prompt: str, max_tokens: int = 300) -> str:
+def call_llm(prompt: str = None, max_tokens: int = 300, system_prompt: str = None, messages: list = None) -> str:
     """
     Call Groq API (OpenAI-compatible).
     Auto-retries on rate limit: waits 10s → 20s → 30s.
     Groq free tier: 30 requests/minute, very fast inference.
     """
+    if not GROQ_KEY:
+        return "[Set GROQ_API_KEY in your .env file]"
+
+    if messages is not None:
+        api_messages = messages
+    else:
+        api_messages = []
+        if system_prompt:
+            api_messages.append({"role": "system", "content": system_prompt})
+        if prompt:
+            api_messages.append({"role": "user", "content": prompt})
+
     RETRIES    = 3
     WAIT_TIMES = [10, 20, 30]
 
@@ -67,7 +79,7 @@ def call_llm(prompt: str, max_tokens: int = 300) -> str:
                 },
                 json={
                     "model": GROQ_MODEL,
-                    "messages": [{"role": "user", "content": prompt}],
+                    "messages": api_messages,
                     "max_tokens": max_tokens,
                     "temperature": 0.5,
                 },
@@ -515,21 +527,22 @@ def chat_mode():
         if not user_input:
             continue
 
-        # Build prompt with last 4 turns for context
-        history_text = ""
-        for turn in conversation_history[-4:]:
-            history_text += f"User: {turn['user']}\nAssistant: {turn['assistant']}\n\n"
-
-        prompt = (
-            f"You are a loan lead analyst assistant. Answer questions about the lead database below.\n"
-            f"Use plain text only. No markdown, no bullet points with asterisks.\n\n"
-            f"LEADS DATABASE:\n{leads_context}\n\n"
-            f"{history_text}"
-            f"User: {user_input}"
+        system_prompt = (
+            "You are a loan lead analyst assistant. You operate as a strict Retrieval-Augmented Generation (RAG) model over the lead score database below.\n"
+            "Your knowledge is strictly limited to the provided database of loan leads. You must NOT use any external knowledge, search results, or general training knowledge to answer questions that are not about the data in the database.\n"
+            "If the user asks off-topic questions, general knowledge questions (such as 'who is Lionel Messi', 'tell me about the capital of France', 'who is messi', etc.), or anything unrelated to these loan leads, you must refuse to answer. Respond with: 'I can only answer questions based on the lead score data provided.'\n"
+            "Use plain text only. No markdown, no bullet points with asterisks.\n\n"
+            f"LEADS DATABASE:\n{leads_context}"
         )
 
+        messages = [{"role": "system", "content": system_prompt}]
+        for turn in conversation_history[-4:]:
+            messages.append({"role": "user", "content": turn["user"]})
+            messages.append({"role": "assistant", "content": turn["assistant"]})
+        messages.append({"role": "user", "content": user_input})
+
         print("  Agent: ", end="", flush=True)
-        reply = call_llm(prompt, max_tokens=400)
+        reply = call_llm(prompt=None, max_tokens=400, messages=messages)
         print(reply)
 
         conversation_history.append({"user": user_input, "assistant": reply})
